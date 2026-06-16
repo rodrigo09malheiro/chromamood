@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ChromaMood</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <header>
+    <h1>🎨 ChromaMood</h1>
+    <p>Gera paletas de cor com IA a partir de uma descrição</p>
+  </header>
+
+  <main>
+    <section class="input-section">
+      <textarea id="prompt" placeholder="Descreve um mood... ex: café vintage à noite"></textarea>
+      <button id="generate-btn">Gerar Paleta</button>
+    </section>
+
+    <section class="result-section" id="result" hidden>
+      <div id="swatches"></div>
+      <div id="typography"></div>
+      <div id="mood-description"></div>
+    </section>
+  </main>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
