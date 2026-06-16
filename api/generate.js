@@ -21,15 +21,8 @@ export default async function handler(req, res) {
         messages: [
           {
             role: 'system',
-            content: `És um especialista em design e teoria das cores. Quando receberes uma descrição de um mood ou ambiente, responde APENAS com um objeto JSON válido, sem texto adicional, com esta estrutura exata:
-{
-  "colors": ["#hex1", "#hex2", "#hex3", "#hex4", "#hex5"],
-  "typography": {
-    "title": "Nome da fonte para títulos",
-    "body": "Nome da fonte para corpo de texto"
-  },
-  "mood": "Descrição breve do mood em português (1-2 frases)"
-}`
+            content: `És um especialista em design e teoria das cores. Quando receberes uma descrição de um mood ou ambiente, responde APENAS com um objeto JSON válido, sem texto adicional, sem markdown, sem backticks, com esta estrutura exata:
+{"colors":["#hex1","#hex2","#hex3","#hex4","#hex5"],"typography":{"title":"Nome da fonte para títulos","body":"Nome da fonte para corpo de texto"},"mood":"Descrição breve do mood em português"}`
           },
           {
             role: 'user',
@@ -41,13 +34,22 @@ export default async function handler(req, res) {
     });
 
     const groqData = await response.json();
-    const content = groqData.choices[0].message.content;
-    const parsed = JSON.parse(content);
+    
+    if (!groqData.choices || !groqData.choices[0]) {
+      console.error('Groq response:', JSON.stringify(groqData));
+      return res.status(500).json({ error: 'Resposta inválida da Groq' });
+    }
 
+    let content = groqData.choices[0].message.content;
+    
+    // Limpar possíveis backticks ou markdown
+    content = content.replace(/```json/g, '').replace(/```/g, '').trim();
+    
+    const parsed = JSON.parse(content);
     return res.status(200).json(parsed);
 
   } catch (err) {
-    console.error(err);
-    return res.status(500).json({ error: 'Erro ao chamar a API da Groq' });
+    console.error('Erro:', err.message);
+    return res.status(500).json({ error: 'Erro ao chamar a API da Groq', details: err.message });
   }
 }
