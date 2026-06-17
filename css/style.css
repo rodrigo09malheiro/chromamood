@@ -5,7 +5,7 @@
 }
 
 body {
-  font-family: 'Segoe UI', sans-serif;
+  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
   background-color: #0f0f0f;
   color: #f0f0f0;
   min-height: 100vh;
@@ -48,6 +48,11 @@ textarea {
   color: #f0f0f0;
   font-size: 1rem;
   resize: none;
+  outline: none;
+}
+
+textarea:focus {
+  border-color: #7c3aed;
 }
 
 button {
@@ -57,12 +62,18 @@ button {
   border: none;
   border-radius: 8px;
   font-size: 1rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: background-color 0.2s, opacity 0.2s;
 }
 
 button:hover {
   background-color: #6d28d9;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 .result-section {
@@ -74,41 +85,42 @@ button:hover {
   gap: 1.5rem;
 }
 
+/* Contentor dos swatches */
 #swatches {
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
+  justify-content: space-between;
 }
 
+/* Swatch individual clicável */
 .swatch {
-  width: 80px;
-  height: 80px;
+  flex: 1;
+  min-width: 80px;
+  height: 100px;
   border-radius: 8px;
   cursor: pointer;
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  padding-bottom: 4px;
-  font-size: 0.65rem;
+  padding-bottom: 8px;
+  font-size: 0.75rem;
+  font-weight: bold;
   color: white;
   text-shadow: 0 0 4px rgba(0,0,0,0.8);
-  transition: transform 0.2s;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .swatch:hover {
   transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(124, 58, 237, 0.3);
 }
 
-#typography {
+#typography, #mood-description {
   background-color: #1a1a1a;
-  padding: 1rem;
+  padding: 1.25rem;
   border-radius: 8px;
-}
-
-#mood-description {
-  background-color: #1a1a1a;
-  padding: 1rem;
-  border-radius: 8px;
+  border: 1px solid #222;
   line-height: 1.6;
-  color: #ccc;
 }
