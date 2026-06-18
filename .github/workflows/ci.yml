@@ -1,0 +1,67 @@
+name: CI/CD - ChromaMood
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    name: Validar Ficheiros
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do repositório
+        uses: actions/checkout@v4
+
+      - name: Verificar presença de ficheiros essenciais
+        run: |
+          echo "A verificar estrutura do projeto..."
+          test -f index.html && echo "✅ index.html encontrado" || (echo "❌ index.html não encontrado" && exit 1)
+          test -f js/app.js && echo "✅ js/app.js encontrado" || (echo "❌ js/app.js não encontrado" && exit 1)
+          test -f css/style.css && echo "✅ css/style.css encontrado" || (echo "❌ css/style.css não encontrado" && exit 1)
+          test -f api/generate.js && echo "✅ api/generate.js encontrado" || (echo "❌ api/generate.js não encontrado" && exit 1)
+          test -f vercel.json && echo "✅ vercel.json encontrado" || (echo "❌ vercel.json não encontrado" && exit 1)
+          echo "✅ Todos os ficheiros essenciais presentes!"
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Instalar dependências de lint
+        run: |
+          npm init -y
+          npm install --save-dev htmlhint
+
+      - name: Lint ao HTML
+        run: |
+          npx htmlhint index.html --config '{"doctype-first": true, "tag-pair": true, "attr-no-duplication": true}'
+          echo "✅ HTML válido!"
+
+      - name: Verificar JSON do Vercel
+        run: |
+          node -e "
+            const fs = require('fs');
+            const json = fs.readFileSync('vercel.json', 'utf8');
+            JSON.parse(json);
+            console.log('✅ vercel.json é JSON válido!');
+          "
+
+      - name: Verificar sintaxe do JavaScript
+        run: |
+          node --check js/app.js && echo "✅ js/app.js sem erros de sintaxe!"
+          node --check api/generate.js && echo "✅ api/generate.js sem erros de sintaxe!"
+
+  deploy-info:
+    name: Info de Deploy
+    runs-on: ubuntu-latest
+    needs: validate
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+
+    steps:
+      - name: Deploy automático via Vercel
+        run: |
+          echo "✅ CI passou! O Vercel faz o deploy automaticamente via integração GitHub."
+          echo "🔗 A app estará disponível no URL do projeto no Vercel."
