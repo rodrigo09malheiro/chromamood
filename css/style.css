@@ -6,78 +6,95 @@
 
 body {
   font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
-  background-color: #0f0f0f;
-  color: #f0f0f0;
+  background-color: #0b0b0f;
+  color: #f3f4f6;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 2rem;
+  padding: 3rem 1.5rem;
 }
 
 header {
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
 }
 
 header h1 {
-  font-size: 2.5rem;
+  font-size: 2.8rem;
+  font-weight: 800;
   margin-bottom: 0.5rem;
+  background: linear-gradient(135deg, #a78bfa, #7c3aed);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 header p {
-  color: #aaa;
-  font-size: 1rem;
+  color: #9ca3af;
+  font-size: 1.05rem;
 }
 
 .input-section {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.25rem;
   width: 100%;
   max-width: 600px;
+  background: #111116;
+  padding: 1.5rem;
+  border-radius: 16px;
+  border: 1px solid #1f1f29;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
 }
 
 textarea {
   width: 100%;
-  height: 100px;
+  height: 110px;
   padding: 1rem;
-  border-radius: 8px;
-  border: 1px solid #333;
-  background-color: #1a1a1a;
-  color: #f0f0f0;
+  border-radius: 12px;
+  border: 1px solid #27273a;
+  background-color: #161622;
+  color: #f3f4f6;
   font-size: 1rem;
   resize: none;
   outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 textarea:focus {
   border-color: #7c3aed;
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.15);
 }
 
 button {
-  padding: 0.75rem 1.5rem;
-  background-color: #7c3aed;
+  padding: 0.85rem 1.5rem;
+  background: linear-gradient(135deg, #8b5cf6, #6d28d9);
   color: white;
   border: none;
-  border-radius: 8px;
+  border-radius: 12px;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.2s, opacity 0.2s;
+  box-shadow: 0 4px 12px rgba(109, 40, 217, 0.2);
+  transition: opacity 0.2s, transform 0.1s;
 }
 
 button:hover {
-  background-color: #6d28d9;
+  opacity: 0.95;
+  transform: translateY(-1px);
+}
+
+button:active {
+  transform: translateY(0);
 }
 
 button:disabled {
-  opacity: 0.6;
+  opacity: 0.5;
   cursor: not-allowed;
 }
 
 .result-section {
-  margin-top: 2rem;
+  margin-top: 2.5rem;
   width: 100%;
   max-width: 600px;
   display: flex;
@@ -85,42 +102,126 @@ button:disabled {
   gap: 1.5rem;
 }
 
-/* Contentor dos swatches */
 #swatches {
   display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-  justify-content: space-between;
+  gap: 0.75rem;
+  width: 100%;
 }
 
-/* Swatch individual clicável */
 .swatch {
   flex: 1;
-  min-width: 80px;
-  height: 100px;
-  border-radius: 8px;
+  height: 110px;
+  border-radius: 12px;
   cursor: pointer;
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  padding-bottom: 8px;
+  padding-bottom: 10px;
   font-size: 0.75rem;
-  font-weight: bold;
+  font-weight: 700;
   color: white;
-  text-shadow: 0 0 4px rgba(0,0,0,0.8);
-  box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .swatch:hover {
-  transform: scale(1.05);
-  box-shadow: 0 6px 12px rgba(124, 58, 237, 0.3);
+  transform: scale(1.06) translateY(-4px);
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.5);
 }
 
-#typography, #mood-description {
-  background-color: #1a1a1a;
-  padding: 1.25rem;
-  border-radius: 8px;
-  border: 1px solid #222;
+/* Alterado: Só estiliza se tiver conteúdo lá dentro (:not(:empty)) */
+#typography:not(:empty), #mood-description:not(:empty) {
+  background-color: #111116;
+  padding: 1.5rem;
+  border-radius: 16px;
+  border: 1px solid #1f1f29;
   line-height: 1.6;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Secção de Histórico */
+.history-section {
+  margin-top: 3.5rem;
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  border-top: 1px solid #1f1f29;
+  padding-top: 2rem;
+}
+
+.history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.history-header h2 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #e5e7eb;
+}
+
+.secondary-btn {
+  background-color: #161622;
+  color: #9ca3af;
+  font-size: 0.85rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid #27273a;
+  box-shadow: none;
+}
+
+.secondary-btn:hover {
+  background: #ef4444;
+  color: white;
+  border-color: #ef4444;
+  transform: none;
+}
+
+#history-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.history-item {
+  background-color: #111116;
+  border: 1px solid #1f1f29;
+  border-radius: 14px;
+  padding: 1.25rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.history-item-prompt {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #d1d5db;
+  font-style: italic;
+  max-width: 60%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.history-item-colors {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.history-mini-swatch {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+  transition: transform 0.15s;
+}
+
+.history-mini-swatch:hover {
+  transform: scale(1.15) translateY(-2px);
 }

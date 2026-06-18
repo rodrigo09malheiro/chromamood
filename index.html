@@ -20,11 +20,20 @@
       <button id="generate-btn">Gerar Paleta</button>
     </section>
 
-    <!-- Área de Resultados -->
+    <!-- Área de Resultados (Toda esta secção fica escondida até carregar no botão) -->
     <section class="result-section" id="result" hidden>
       <div id="swatches"></div>
       <div id="typography"></div>
       <div id="mood-description"></div>
+    </section>
+
+    <!-- Área do Histórico de Paletas -->
+    <section class="history-section" id="history-section" hidden>
+      <div class="history-header">
+        <h2>Histórico de Paletas</h2>
+        <button id="clear-history-btn" class="secondary-btn">Limpar Histórico</button>
+      </div>
+      <div id="history-container"></div>
     </section>
   </main>
 
