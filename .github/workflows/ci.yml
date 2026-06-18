@@ -30,15 +30,16 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Instalar dependências de lint
-        run: |
-          npm init -y
-          npm install --save-dev htmlhint
+      - name: Instalar dependências
+        run: npm install
 
       - name: Lint ao HTML
         run: |
           npx htmlhint index.html --config '{"doctype-first": true, "tag-pair": true, "attr-no-duplication": true}'
           echo "✅ HTML válido!"
+
+      - name: Correr unit tests
+        run: npm test
 
       - name: Verificar JSON do Vercel
         run: |
